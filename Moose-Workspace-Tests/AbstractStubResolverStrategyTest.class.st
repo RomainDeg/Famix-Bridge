@@ -12,7 +12,7 @@ Class {
 
 { #category : 'testing' }
 AbstractStubResolverStrategyTest class >> isAbstract [ 
-	^ true
+	^ self name = AbstractStubResolverStrategyTest name
 ]
 
 { #category : 'initialization' }
