@@ -18,10 +18,10 @@ BaselineOfFamixBridge >> baseline: spec [
 			package: 'Famix-Bridge-Tests'
 			with: [
 				spec requires:
-						#( 'Famix-Bridge' 'Moose-TestResources-JavaModels' ) ];
+						#( 'Famix-Bridge' 'MooseTestResourcesJavaModels' ) ];
 			package: 'Moose-Workspace-Tests' with: [
 				spec requires:
-						#( 'Moose-Workspace' 'Moose-TestResources-JavaModels' ) ] ]
+						#( 'Moose-Workspace' 'MooseTestResourcesJavaModels' ) ] ]
 ]
 
 { #category : 'baselines' }
