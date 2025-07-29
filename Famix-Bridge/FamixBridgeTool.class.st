@@ -53,16 +53,7 @@ FamixBridgeTool >> allWorkspaceModelsButSourceModel [
 	"this method is only called when there is an active workspace, so no checks are done"
 	workspace := ActiveMooseWorkspace value.
 
-	^ workspace mainModel = sourceModel
-		  ifTrue: [ workspace librariesModels ]
-		  ifFalse: [
-			  | modelsToSearch |
-			  modelsToSearch := OrderedCollection new.
-			  modelsToSearch
-				  add: workspace mainModel;
-				  addAll: workspace librariesModels;
-				  remove: sourceModel.
-			  modelsToSearch ]
+	^ workspace models reject: [ :m | m = sourceModel ]
 ]
 
 { #category : 'cache management' }

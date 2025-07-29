@@ -16,8 +16,7 @@ Class {
 	#name : 'MooseWorkspace',
 	#superclass : 'MooseObject',
 	#instVars : [
-		'librariesModels',
-		'mainModel',
+		'models',
 		'stubResolverStrategy'
 	],
 	#category : 'Moose-Workspace-Core',
@@ -28,13 +27,15 @@ Class {
 { #category : 'adding - removing' }
 MooseWorkspace >> addLibraryModel: aMooseModel [
 
-	librariesModels add: aMooseModel 
+	models add: aMooseModel 
 ]
 
 { #category : 'adding - removing' }
 MooseWorkspace >> clearLibrairiesModel [
-
-	librariesModels := Set new
+	| mainModel |
+	mainModel := self mainModel.
+	models := Set new.
+	mainModel ifNotNil: [ models add: mainModel ]
 ]
 
 { #category : 'initialization' }
@@ -48,7 +49,7 @@ MooseWorkspace >> initialize [
 	super initialize.
 	
 	stubResolverStrategy := self defaultStubResolverStrategy.
-	librariesModels := Set new.
+	models := Set new.
 ]
 
 { #category : 'inter-model protocol' }
@@ -63,31 +64,58 @@ deletes the method once the block is evaluated, or if an exception occurs"
 { #category : 'accessing' }
 MooseWorkspace >> librariesModels [
 
-	^ librariesModels
-]
-
-{ #category : 'accessing' }
-MooseWorkspace >> librariesModels: anObject [
-
-	librariesModels := anObject
+	| mainModel |
+	mainModel := self mainModel.
+	^ models reject: [ :m | m = mainModel ]
 ]
 
 { #category : 'accessing' }
 MooseWorkspace >> mainModel [
-
-	^ mainModel
+	
+	^ self attributeAt: #mainModel ifAbsent: [ nil ]
 ]
 
 { #category : 'accessing' }
 MooseWorkspace >> mainModel: anObject [
 
-	mainModel := anObject
+	(models includes: anObject) ifFalse: [ models add: anObject ].
+
+	self
+		attributeAt: #mainModel
+		ifAbsent: [ ^ self simpleSetMainModel: anObject ].
+	"if present"
+	self removePreviousMainModelAndSetMainModel: anObject
+]
+
+{ #category : 'accessing' }
+MooseWorkspace >> models [
+
+	^ models
+]
+
+{ #category : 'accessing' }
+MooseWorkspace >> models: anObject [
+
+	models := anObject
 ]
 
 { #category : 'adding - removing' }
 MooseWorkspace >> removeLibraryModel: aMooseModel [
 
-	librariesModels remove: aMooseModel 
+	models remove: aMooseModel 
+]
+
+{ #category : 'accessing' }
+MooseWorkspace >> removePreviousMainModelAndSetMainModel: anObject [
+
+	models remove: self mainModel.
+	self simpleSetMainModel: anObject
+]
+
+{ #category : 'accessing' }
+MooseWorkspace >> simpleSetMainModel: anObject [
+
+	self attributeAt: #mainModel put: anObject
 ]
 
 { #category : 'meta-object-protocol' }
