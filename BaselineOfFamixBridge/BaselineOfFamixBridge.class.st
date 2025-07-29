@@ -28,7 +28,7 @@ BaselineOfFamixBridge >> baseline: spec [
 BaselineOfFamixBridge >> mooseTestResourcesJavaModels: spec [
 
 	spec
-		baseline: 'Moose-TestResources-JavaModels'
+		baseline: 'MooseTestResourcesJavaModels'
 		with: [ 
 		spec repository: 'github://RomainDeg/Moose-TestResources-JavaModels:main/src'; loads: 'common' ]
 ]
