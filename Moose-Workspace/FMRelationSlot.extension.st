@@ -15,9 +15,9 @@ FMRelationSlot >> findVersionsOfEntity: anObject [
 { #category : '*Moose-Workspace' }
 FMRelationSlot >> read: anObject [
 
-	^ ActiveMooseWorkspace value
-		  ifNil: [ super read: anObject ]
-		  ifNotNil: [ ActiveMooseWorkspace value slot: self read: anObject ]
+	^ ActiveMooseWorkspace value interModelModeActive
+		  ifTrue: [ ActiveMooseWorkspace value slot: self read: anObject ]
+		  ifFalse: [ super read: anObject ]
 ]
 
 { #category : '*Moose-Workspace' }

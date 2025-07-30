@@ -15,6 +15,8 @@ API:
 Class {
 	#name : 'MooseWorkspace',
 	#superclass : 'MooseObject',
+	#traits : 'MooseTWorkspace',
+	#classTraits : 'MooseTWorkspace classTrait',
 	#instVars : [
 		'models',
 		'stubResolverStrategy'
@@ -54,8 +56,8 @@ MooseWorkspace >> initialize [
 
 { #category : 'inter-model protocol' }
 MooseWorkspace >> interModelModeDuring: aBlock [
-	"compiles the method activating inter-model protocol and runs the block given as parameter
-deletes the method once the block is evaluated, or if an exception occurs"
+	"sets self as the dynamic variable value, and activates inter model mode for the execution of the block"
+	interModelModeActive := true.
 	^ ActiveMooseWorkspace
 		value: self
 		during: [ aBlock value ]

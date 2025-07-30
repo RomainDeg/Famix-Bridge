@@ -73,9 +73,9 @@ FamixBridgeTool >> findResource: stub [
 
 	sourceModel := stub mooseModel.
 
-	^ ActiveMooseWorkspace value
-		  ifNotNil: [ self findResourceWithinWorkspace: stub ]
-		  ifNil: [ self findResourceLookingThroughAllModels: stub ]
+	^ ActiveMooseWorkspace value interModelModeActive 
+		  ifTrue: [ self findResourceWithinWorkspace: stub ]
+		  ifFalse: [ self findResourceLookingThroughAllModels: stub ]
 ]
 
 { #category : 'searching resources' }
@@ -144,9 +144,9 @@ FamixBridgeTool >> findStubsOf: entity [
 	"TODO : consider the possibility of results in several models and modify as needed"
 	sourceModel := entity mooseModel.
 
-	^ ActiveMooseWorkspace value
-		  ifNotNil: [ self findStubsWithinWorkspace: entity ]
-		  ifNil: [ self findStubsLookingThroughAllModels: entity ]
+	^ ActiveMooseWorkspace value interModelModeActive 
+		  ifTrue: [ self findStubsWithinWorkspace: entity ]
+		  ifFalse: [ self findStubsLookingThroughAllModels: entity ]
 ]
 
 { #category : 'searching stubs' }

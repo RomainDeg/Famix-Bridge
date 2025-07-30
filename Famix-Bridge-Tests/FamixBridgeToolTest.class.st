@@ -48,13 +48,13 @@ FamixBridgeToolTest >> testAllWorkspaceModelsButSourceModel [
 	| workspace result |
 	workspace := MooseWorkspace new.
 	workspace mainModel: testResources mainModel.
-	workspace librariesModels: {
-			testResources libraryModel.
-			testResources libraryModelClone }.
+	workspace
+		addLibraryModel: testResources libraryModel;
+		addLibraryModel: testResources libraryModelClone.
 
 	tool sourceModel: workspace mainModel.
 
-	ActiveMooseWorkspace value ifNotNil: [
+	ActiveMooseWorkspace value class = NullMooseWorkspace ifFalse: [
 		self fail:
 			'There is currently an active moose workspace. Restart the test when it is not the case.' ].
 	result := ActiveMooseWorkspace
@@ -66,7 +66,7 @@ FamixBridgeToolTest >> testAllWorkspaceModelsButSourceModel [
 
 	tool sourceModel: testResources libraryModelClone.
 
-	ActiveMooseWorkspace value ifNotNil: [
+	ActiveMooseWorkspace value class = NullMooseWorkspace ifFalse: [
 		self fail:
 			'There is currently an active moose workspace. Restart the test when it is not the case.' ].
 	result := ActiveMooseWorkspace
