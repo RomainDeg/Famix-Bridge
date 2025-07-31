@@ -8,6 +8,6 @@ To load the project, open a Playground in a Moose image and execute the followin
 ```St
 Metacello new
   baseline: 'FamixBridge';
-  repository: 'github://RomainDeg/Famix-Bridge:main/src';
+  repository: 'github://moosetechnology/Famix-Bridge:main/src';
   load
 ```
